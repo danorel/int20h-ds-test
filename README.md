@@ -4,6 +4,7 @@ Hackathon Int20h test
 ### Prerequisite 
 
 - Python: 3.10
+- Jupyter Notebook: 6.4.12
 
 ### Environment
 
