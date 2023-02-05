@@ -32,3 +32,9 @@ pip3 install -r requirements.txt
 pre-commit install
 pre-commit run --all-files
 ```
+
+5. Setup Jupyter Notebook virtual env
+
+```shell
+python3 -m ipykernel install env
+```
