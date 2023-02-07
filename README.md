@@ -37,11 +37,16 @@ We looked at the attributes of each event type and possible values of this attri
 As a result, we discovered several facts that helped us in other stages:
 1. We found that both `Sign Up Success` and `Sign Up Error` events had an attribute for `Method` of sign up. We discovered that while some error events occurred for majority of methods(`Email`, `Google`, `Facebook`) there were no error events for `Apple` method. As this finding could mean that there can be issues with application registration that are specific to some methods, we have decided to take additional look at the distribution of `Payment Method`, `Signup Method` and user platform to check whether subscription cancelling happens more often on some of the platform. However, result was negative.
 
-1. 
+1. We have also discovered that the structure of json fields containing event attributes has slight variations. Some of the 2-word event attributes have incosistency with their naming in scope of lowercase/uppercase lettering scheme (e.g. `Membership Type`, `Membership type`). This discovery helped us correct issue during other investigations.
 
+1. We found that refund event happened in approximately 20 cases. That gave us the idea to look manually at some of the subscription cancelling cases to look for possible obvious patterns.
 
+After discussing the event introscection results we discovered that only around 250 users from all dataset have canceled their subscription. Therefore we took statistically representable randomly selected subset of users and looked through their application usage history manually. This way we were hoping to gain some insights both on possible reasons for subscription cancellation and common user behaviour and action sequence. 
 
-It was also discovered that only around 250 users from all dataset have canceled their subscription. Therefore we took statistically representable randomly selected subset of users and looked through their application usage history manually. This way we were hoping to gain some insights both on possible reasons for subscription cancellation and 
+We found the following:
+1. There is a big proportion of users that cancelled their subscription after a month of subscription but just several days before their monthly subscription would be renewed
+1. Some of the users cancel subscription after some time of usage without any obvious technical issue and without close renewement payment date.
+1. Many cases of users that cancelled their subscription and that don't fall in previous categories follow the same pattern of steps (`Open Wallet` -> `Open Conversation with Support` -> `Cancel Subscription`). This can indicate that there might be a cancellation reason that is connected with some unexpected expenses that make people write to support and then cancel their subscription. It could be either some transactional issue or for example unexpected increase in fees that user didn't know about. Because of the small number of refund cases (~20), the second theory may look more favourable.
 
 ### Conclusions
 
