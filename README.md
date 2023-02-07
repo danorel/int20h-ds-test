@@ -1,35 +1,37 @@
 # int20h-ds-test
-Hackathon Int20h test: summary
+### Hackathon Int20h test task: summary
+___
+**Assignment:**
+
+Identify a set of events and parameters with the highest or lowest correlation with the potential account cancellation. Prioritize the events, event properties or user properties, which have highest or lowest correlation with the account cancellation
+___
 
 Our team has managed to provide 3 different studies:
 1. [Statistical-based approach](#model-based-approach)
-2. [Model-based approach](#model-based-approach)
-3. [Event introspection](#event-introspection)
+2. [Event introspection](#event-introspection)
+3. [Model-based approach](#model-based-approach)
 
 ### Studies
 
 #### Statistical-based approach
 
-...write conclusions here...
+The first basic approach was to look at the dataset attributes and check whether they can have theoretical correlation with the target event.
 
-#### Model-based approach 
+We started from pre-processing, where removed all events that were not between subscription and cancellation. After this, we check the distribution of events for each column and compared to the original one:
 
-In [this study](./study.model-based.ipynb), we changed the initial statement of the problem, where we needed to find the correlation between events/properties with subscription cancellation events. Instead, we are trying to predict whether the user will cancel the subscription or not based on his current profile and events on the platform.
+1. Technical properties of user device are not likely to have big influence on the prediction of the target event
 
-We used a `RandomForestClassifier` as a model for this formulated binary classification problem because it helps to find the list of the most prioritized events/properties from the user profile.
+2. More than half of the top 10 events before cancellation are connected with transactions
 
-Moreover, we rely on our model because we tested it on the train/test split of the initial dataset. We measure the quality of the model using a precision metric on true-positives predictions (precision = *76%* on true-positives, precision = *100%* on true-negatives). We concluded that our model doesn't overfit, which is why we can trust our results.
+3. Many reports to the technical support are also navigated from transaction views
 
-Finally, after receiving a prioritized list of events/properties, we interpreted them and formulated *top-5* logical conclusions:
-1. "Subscription Premium Renew", "Order": undesirable automatic subscription renewal often motivates users to make refunds.
-2. "State": a possible scenario where the government regulates some U.S. regions in the car-related sphere, which leads to the user leak.
-3. "Platform", "Model", and "Manufacture": an application on different platforms and operational systems may contain some irritative bugs and errors.
-4. "Chat Conversation Opened": sometimes, a support department doesn't respond to the user-initiated chats.
-5. "Account History Transaction Details", "Calculator View": users tend to cut their costs after making expense calculations and reviewing transaction history. 
+4. Every 7th person with "Auto Payment" event made subscription cancellation
+
+5. User state property has no direct correlation with cancellation, but can have influence on the transaction processes
 
 #### Event introspection
 
-Another approach that we took to gain insight into the reasons for subscription cancellation is data and event introspection.
+In this approach that we took to continue gaining insight into the reasons for subscription cancellation is data and event introspection.
 
 Due to the fact that some event types also provide event attributes as additional information, we decided to try to loook whether some of this additional information can be used for the purposes of our task. During this stage we inspected more closely both event types and event attributes.
 We looked at the attributes of each event type and possible values of this attributes. 
@@ -48,10 +50,17 @@ We found the following:
 1. Some of the users cancel subscription after some time of usage without any obvious technical issue and without close renewement payment date.
 1. Many cases of users that cancelled their subscription and that don't fall in previous categories follow the same pattern of steps (`Open Wallet` -> `Open Conversation with Support` -> `Cancel Subscription`). This can indicate that there might be a cancellation reason that is connected with some unexpected expenses that make people write to support and then cancel their subscription. It could be either some transactional issue or for example unexpected increase in fees that user didn't know about. Because of the small number of refund cases (~20), the second theory may look more favourable.
 
-### Conclusions
+#### Model-based approach 
 
-As a result of our research, we combined our conclusions from 3 different studies into 1 list of possible reasons, why the users cancel their subscription (sorted from the most correlated to the least):
-1. 
-2. 
-3.
-...
+In [this study](./study.model-based.ipynb), we changed the initial statement of the problem, where we needed to find the correlation between events/properties with subscription cancellation events. Instead, we are trying to predict whether the user will cancel the subscription or not based on his current profile and events on the platform.
+
+We used a `RandomForestClassifier` as a model for this formulated binary classification problem because it helps to find the list of the most prioritized events/properties from the user profile.
+
+Moreover, we rely on our model because we tested it on the train/test split of the initial dataset. We measure the quality of the model using a precision metric on true-positives predictions (precision = *76%* on true-positives, precision = *100%* on true-negatives). We concluded that our model doesn't overfit, which is why we can trust our results.
+
+Finally, after receiving a prioritized list of events/properties, we interpreted them and formulated *top-5* logical conclusions:
+1. "Subscription Premium Renew", "Order": undesirable automatic subscription renewal often motivates users to make refunds.
+2. "State": a possible scenario where the government regulates some U.S. regions in the car-related sphere, which leads to the user leak.
+3. "Platform", "Model", and "Manufacture": an application on different platforms and operational systems may contain some irritative bugs and errors.
+4. "Chat Conversation Opened": sometimes, a support department doesn't respond to the user-initiated chats.
+5. "Account History Transaction Details", "Calculator View": users tend to cut their costs after making expense calculations and reviewing transaction history. 
