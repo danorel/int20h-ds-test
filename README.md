@@ -1,40 +1,29 @@
 # int20h-ds-test
-Hackathon Int20h test
+Hackathon Int20h test: summary
 
-### Prerequisite 
+Our team has managed to provide 3 different studies:
+1. <a href="#statistical-based">Statistical-based approach</a>
+2. <a href="#model-based">Model-based approach</a>
+3. <a href="#event-introspection">Event introspection</a>
 
-- Python: 3.10
-- Jupyter Notebook: 6.4.12
+### Studies
 
-### Environment
+#### <div id="statistical-based">Statistical-based approach</div>
 
-1. Install python virtual environment:
+...write conclusions here...
 
-```shell
-python3 -m venv env 
-```
+#### <div id="model-based">Model-based approach</div>
 
-2. Activate python virtual env
+...write conclusions here...
 
-```shell
-source env/bin/activate
-```
+#### <div id="event-introspection">Event introspection</div>
 
-3. Install python dependencies from requirements.txt:
+...write conclusions here...
 
-```shell
-pip3 install -r requirements.txt
-```
+### Conclusions
 
-4. Setup `pre-commit` to make hook with `.git`:
-
-```shell
-pre-commit install
-pre-commit run --all-files
-```
-
-5. Setup Jupyter Notebook virtual env
-
-```shell
-python3 -m ipykernel install env
-```
+As a result of our research, we combined our conclusions from 3 different studies into 1 list of possible reasons, why the users cancel their subscription (sorted from the most correlated to the least):
+1. 
+2. 
+3.
+...
